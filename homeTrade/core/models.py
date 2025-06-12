@@ -32,7 +32,7 @@ class House(models.Model):
     parking = models.BooleanField(default=False)
     elevator = models.BooleanField(default=False)
     wifi = models.BooleanField(default=False)
-    address = models.CharField(max_length=255)
+    address = models.URLField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     video = models.URLField(blank=True, null=True)
 

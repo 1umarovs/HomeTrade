@@ -1,11 +1,18 @@
-from django.urls import path
-from .views import *
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import (
+    HouseViewSet,
+    HouseGalleryViewSet,
+    HouseFeatureViewSet,
+    InquiryViewSet
+)
 
-app_name = 'core'
+router = DefaultRouter()
+router.register(r'houses', HouseViewSet)
+router.register(r'galleries', HouseGalleryViewSet)
+router.register(r'features', HouseFeatureViewSet)
+router.register(r'inquiries', InquiryViewSet)
 
 urlpatterns = [
-    path('', HouseViewSet.as_view({'get': 'list', 'post': 'create'}), name='house-list'),
-    path('gallery/', HouseGalleryViewSet.as_view({'get': 'list', 'post': 'create'}), name='house-gallery-list'),
-    path('features/', HouseFeatureViewSet.as_view({'get': 'list', 'post': 'create'}), name='house-feature-list'),
-    path('inquiries/', InquiryViewSet.as_view({'get': 'list', 'post': 'create'}), name='inquiry-list'),
+    path('', include(router.urls)),
 ]
