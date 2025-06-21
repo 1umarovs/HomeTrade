@@ -21,6 +21,10 @@ class HouseViewSet(viewsets.ModelViewSet):
         elif self.action == 'add_inquiry':
             return [AllowAny()]
         return super().get_permissions()
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAdminUser()]
+        return super().get_permissions()
 
     @action(detail=True, methods=['post'], url_path='add-feature')
     def add_feature(self, request, pk=None):
@@ -54,12 +58,29 @@ class HouseGalleryViewSet(viewsets.ModelViewSet):
     queryset = houseGallery.objects.all()
     serializer_class = HouseGallerySerializer
 
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAdminUser()]
+        return super().get_permissions()
 
 class HouseFeatureViewSet(viewsets.ModelViewSet):
     queryset = houseFeature.objects.all()
     serializer_class = HouseFeatureSerializer
 
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAdminUser()]
+        return super().get_permissions()
+
 
 class InquiryViewSet(viewsets.ModelViewSet):
     queryset = Inquiry.objects.all()
     serializer_class = InquirySerializer
+
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAdminUser()]
+        return super().get_permissions()
+
+
+
